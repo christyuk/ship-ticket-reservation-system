@@ -77,3 +77,24 @@ function
 delete_category($id)
 {
 start_loader();
+     $.ajax({
+        url:_base_url_+"classes/Master.php?f=delete_port",method:"POST",
+        data:{id:$id},
+        dataType:"json",
+        error:err =>
+            {
+            console.log(err);
+            alert_toast("Anerroroccurred.","error');
+            end_loader();
+        },
+        success:function(resp){
+            if(typeofresp=='object'&&resp.status=='success') 
+            {location.reload();
+            }else{
+                alert_toast("Anerroroccurred.",'error');
+                end_loader();
+            }
+        }
+    })
+}
+</script>
