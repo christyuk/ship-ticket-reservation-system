@@ -8,5 +8,6 @@ HARDWARE=1)Machine Name-Windows    2)Processor-Intel Core 2 Duo 2.00 ghz    3)Ra
 SOFTWARE=1)PHP(Front end)      2)MYSQL(Back end)     3)HTML,CSS,JAVASCRIPT(client side technologies)   4)visualstudio code(IDE)        5)XAMPAPACHE(server)!
 ![image](https://github.com/user-attachments/assets/e14bf4d9-29d3-4a46-a08d-4f14a165a226)
 ![image](https://github.com/user-attachments/assets/0ea99edb-1cb4-4286-a51b-4706991769c9)
+![image](https://github.com/user-attachments/assets/3d529529-0c5f-40b9-8965-7a721528c4e0)
 
 
