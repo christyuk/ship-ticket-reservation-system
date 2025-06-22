@@ -1,0 +1,88 @@
+<?php
+if(isset($_GET['id'])&&$_GET['id']>0){
+    $qry=$conn->query("SELECT * from `categories` where id = '{$_GET['id']}'");
+    if($qry->num_rows>0){
+        foreach($qry->fetch_assoc()as$k=>$v){
+            $$k=$v;
+        }
+    }
+}
+?>
+<divclass="cardcard-outlinecard-info">
+  <divclass="card-header">
+    <h3 class="card-title"><?php echo isset($id)? "Update":"Create New"?>Category</h3>
+  </div>
+  <divclass="card-body">
+    <formaction=""id="category-form">
+      <inputtype="hidden"name="id"value="<?phpechoisset($id)?$id:''?>">
+      <divclass="form-group">
+        <labelfor="category"class="control-label">Category Name</label>
+        <textareaname="category"id=""cols="30"rows="2"class="form-controlformno-resize"><?phpechoisset($category)?$category:'';?></textarea>
+      </div>
+      <divclass="form-group">
+        <label for="description" class="control-label">Description</label>
+        <textareaname="description"id=""cols="30"rows="2"class="form-controlformno-resizesummernote"><?phpechoisset($description)?$description:"?></textarea>
+      </div>
+      <divclass="form-group">
+        <labelfor="status"class="control-label">Status</label>
+        <selectname="status"id="status"class="custom-selectselect">
+          <optionvalue="1"<?phpechoisset($status)&&$status==1?'selected':''?>>Active</option>
+          <optionvalue="0"<?phpechoisset($status)&&$status==0?'selected':''?>>Inactive</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <divclass="card-footer">
+    <buttonclass="btnbtn-flatbtn-primary"form="category-form">Save</button>
+    <a class="btn btn-flat btn-default"href="?page=maintenance/category">Cancel</a>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+  $('#category-form').submit(function(e){e.preventDefault();
+    var_this=$(this);
+    $('.err-msg').remove();
+    start_loader();
+  $.ajax({
+      url:_base_url_+ "classes/Master.php?f=save_category",data:newFormData($(this)[0]),
+      cache:false,
+      contentType:false,
+      processData:false,
+      method:'POST',
+      type:'POST',
+      dataType:'json',
+      error:err=>{
+        console.log(err)
+        alert_toast("Anerroroccurred.",'error');
+        end_loader();
+      },
+      success:function(resp){
+        if(typeof resp=='object' && resp.status=='success') 
+      {location.href="./?page=maintenance/category";
+        }elseif(resp.status=='failed'&&!!resp.msg){
+          varel=$('<div>');
+          el.addClass("alertalert-dangererr-msg").text(resp.msg)
+          _this.prepend(el)
+          el.show('slow')
+          $("html,body").animate({scrollTop:_this.closest('.card').offset().top},"fast");
+          end_loader();
+        }else{
+          alert_toast("Anerroroccurred",'error');
+          end_loader();
+        console.log(resp);
+      }
+     }
+    })
+    })
+    $('.summernote').summernote({
+      height:200,
+      toolbar:[
+        ['style',['style']],
+        ['font',['bold','italic','underline','strikeThrough','superscript','subscript','clear']],
+        ['fontname',['fontname']],
+        ['fontsize',['fontsize']],
+        ['color',['color']],
+        ['para',['ol','ul','paragraph','height']],['table',['table']],
+        ['view',['undo','redo','fullscreen','codeview','help']]
+      ]
+    })
